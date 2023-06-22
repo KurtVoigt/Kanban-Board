@@ -1,0 +1,42 @@
+@import "../../sass-variables.scss";
+
+
+.card{
+    border: 0.5ch solid black;
+    width: 70%;
+    height: 125px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:$white;
+    background-color: $lighter-grey;
+    border-radius: 6px;
+    flex-shrink: 0;
+    position: relative;
+    cursor: grab;
+
+   &.engineering{
+    border-color: rgb(7, 13, 97);
+   }
+
+   &.management{
+    border-color: crimson;
+   }
+
+   &.other{
+    border-color: rgb(58, 105, 11);
+   }
+
+   h4{
+    text-align: center;
+   }
+
+   .edit-card-button{
+    position: absolute;
+    top: 20px;
+    right:20px;
+   }
+
+
+}

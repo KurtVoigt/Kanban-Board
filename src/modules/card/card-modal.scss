@@ -1,0 +1,72 @@
+@import "../../sass-variables.scss";
+
+.card-modal-container {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    justify-content: center;
+    align-items: center;
+
+    height: clamp(300px, 60vh, 900px);
+    width: clamp(200px, 30vw, 650px);
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    z-index: 10;
+    border: 0.5ch solid $orange-higlight;
+
+    .card-modal {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 15px;
+        color: $background;
+        height: 98%;
+        width: 98%;
+
+        *:focus{
+            border-color: $orange-higlight;
+            outline:none;
+        }
+
+        .form-field {
+            display: flex;
+            gap: 15px;
+            input{
+                background-color: $white;
+                color: $background;
+            }
+        }
+
+        .desc-field {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+            height: 75%; 
+            flex-grow: 2;
+            
+
+            textarea {
+                resize: none;
+                width: 100%;
+                height: 75%;
+                overflow: scroll;
+                background-color: $white;
+                color: $background;
+                font-size: 1rem;
+            }
+        }
+
+        button{
+            width: clamp(50px, 25%, 250px);
+            min-height: 45px;
+            background-color: $orange-higlight;
+            color: $background;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+    }
+}

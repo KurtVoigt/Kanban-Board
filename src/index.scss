@@ -1,0 +1,41 @@
+@import "./sass-variables";
+
+
+body {
+    background-color: $background;
+
+    .add-button {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 2rem;
+        right: 2rem;
+        background-color: $orange-higlight;
+        color: $white;
+        font-weight: 900;
+        font-size: 4rem;
+        height: 70px;
+        width: 70px;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+
+        div {
+            padding-bottom: 10px;
+        }
+
+
+        &:active {
+            background-color: #944000;
+        }
+
+        &:disabled{
+            visibility: hidden;
+        }
+    }
+
+    .board-container.dimmed {
+        opacity: 0.5;
+    }
+}
