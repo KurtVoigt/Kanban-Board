@@ -35,6 +35,7 @@ class CardForm {
    private _descLabel: HTMLLabelElement;
    private _submitButton: HTMLButtonElement;
    private _cancelButton: HTMLButtonElement;
+   private buttonContainer: HTMLDivElement;
 
 
    constructor(cardInfo?: CardModalInfo) {
@@ -103,6 +104,7 @@ class CardForm {
       this._descInput.value = descValue;
       this._descContainer.append(this._descLabel, this._descInput);
 
+
       //submit button
       this._submitButton = document.createElement("button");
       this._submitButton.type = "button";
@@ -122,8 +124,14 @@ class CardForm {
          this._container.dispatchEvent(this.cancelEvent);
       });
 
+      //button container
+      this.buttonContainer = document.createElement('div');
+      this.buttonContainer.classList.add("button-container");
+      this.buttonContainer.appendChild(this._submitButton);
+      this.buttonContainer.appendChild(this._cancelButton);
 
-      this._modal.append(this._title, this._titleContainer, this._dropDownContainer, this._descContainer, this._submitButton, this._cancelButton);
+
+      this._modal.append(this._title, this._titleContainer, this._dropDownContainer, this._descContainer, this.buttonContainer);
       this._container.appendChild(this._modal);
 
    }

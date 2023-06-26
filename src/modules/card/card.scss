@@ -16,6 +16,32 @@
     position: relative;
     cursor: grab;
 
+    .card-buttons-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+
+        h5 {
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+
+        button {
+            background-color: $orange-higlight;
+            color: $white;
+            border-color: transparent;
+            height: 2rem;
+            border-radius: 10px;
+            width: clamp(60px, 28%, 80px);
+            text-align: center;
+            font-family: 'Prompt', sans-serif;
+
+        }
+    }
+
     &.engineering {
         border-color: rgb(7, 13, 97);
     }
@@ -28,34 +54,8 @@
         border-color: rgb(58, 105, 11);
     }
 
-    h5 {
-        text-align: center;
-        font-size: 17px;
-        font-weight: 700;
-    }
 
-    button{
-        position: absolute;
-        top: 20px;
-        background-color: $orange-higlight;
-        color: $white;
-        border-color: transparent;
-        height: 2rem;
-        border-radius: 10px;
-        width: 60px;
-        text-align: center;
-    }
-
-    .edit-card-button {
-        
-        right: 20px;
-    }
-
-    .delete-card-button {
-        left: 20px;
-    }
-
-    p{
+    p {
         margin: 1rem;
         font-size: 13px;
         font-weight: 400;

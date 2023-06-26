@@ -82,6 +82,7 @@ class Card {
         this._domElement.addEventListener('dragstart', (event:DragEvent) => {this.handleDragStart(event, this.ID)});
         this._domElement.addEventListener('dragend', ()=>{
             this.handleDragEnd(this._domElement)});
+        
 
 
 
@@ -101,11 +102,13 @@ class Card {
         this.description = document.createElement('p');
         this.description.innerText = this._desc;
 
+        const topRow = document.createElement('div');
+        topRow.classList.add('card-buttons-title');
+        topRow.append(this.deleteButton, this.header, this.editButton);
 
-        this._domElement.appendChild(this.header);
+        this._domElement.appendChild(topRow);
         this._domElement.appendChild(this.description);
-        this._domElement.appendChild(this.editButton);
-        this._domElement.appendChild(this.deleteButton);
+ 
 
     }
 

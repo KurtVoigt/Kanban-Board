@@ -26,6 +26,7 @@ addButton.addEventListener('click', () =>{
     addButton.disabled = true;
     modal.domElement.addEventListener("submitted", (e:CustomEvent) =>{
         const newCard = new cards.Card(modal.type, modal.title, modal.desc);
+        
         newCard.domElement.addEventListener('edit-request', ()=>{editCard(newCard)});
         board.addCard(newCard);
         document.body.removeChild(modal.domElement);
@@ -66,6 +67,12 @@ const editCard = (card:cards.Card):void => {
         addButton.disabled = false;
         card.PublishEdit({title:modal.title, type:modal.type, desc:modal.desc});
         
+    });
+
+    modal.domElement.addEventListener("cancelled", ()=>{
+        document.body.removeChild(modal.domElement);
+        boardContainer.classList.remove("dimmed");
+        addButton.disabled = false;
     });
     
     
