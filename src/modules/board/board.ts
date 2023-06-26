@@ -101,7 +101,6 @@ class Board {
 
     private handleDrop(e: DragEvent, boardSections: Map<string, Map<number, Card>>, sectionNames: string[]): void {
         //find the section the card was in and remove it
-        console.log(boardSections);
         const droppedToDiv = e.target as HTMLDivElement;
         const cardID = Number(e.dataTransfer.getData('text/html'));
         const sectionClassList = droppedToDiv.classList;
@@ -114,7 +113,6 @@ class Board {
         }
         // e.preventDefault();
 
-        console.log(sectionName);
         if (!boardSections.get(sectionName))
             throw new Error("Map in board drop event handler does not exist");
         if (boardSections.get(sectionName).get(cardID)) {//already in
@@ -145,8 +143,6 @@ class Board {
 
     private handleCardDelete(e: CustomEvent) {
         for (let i = 0; i < defaults.length; ++i) {
-            console.log(i);
-
             if (this._sections.get(defaults[i]).delete(e.detail.id)) {
                 this.render(defaults[i]);
                 break;
