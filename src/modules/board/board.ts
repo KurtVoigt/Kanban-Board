@@ -28,30 +28,20 @@ class Board {
         this._sections = new Map();
         this._domElement = document.createElement('div');
         this._domElement.className = "board";
-        //this whole if statement is unnecessary at the moment but... yknow, TODO
-        if (sections) {
-            /* for (let i = 0; i < sections.length; i++) {
-                 const customSection = this.Section(sections[i]);
-                 customSection.addEventListener('dragenter', this.handeDragEnter);
-                 customSection.addEventListener('dragover', this.handleDragOver);
-                 customSection.addEventListener('dragleave', this.handleDragLeave);
-                 customSection.addEventListener('drop', this.handleDrop);
-                 this._domElement.appendChild(customSection);
- 
-             }*/
-        } else {
-            for (let i = 0; i < defaults.length; i++) {
-                const sectionMap: Map<number, Card> = new Map();
-                this._sections.set(defaults[i], sectionMap);
-                const defaultSection = this.Section(defaults[i]);
-                defaultSection.addEventListener('dragenter', this.handeDragEnter);
-                defaultSection.addEventListener('dragover', this.handleDragOver);
-                defaultSection.addEventListener('dragleave', this.handleDragLeave);
-                defaultSection.addEventListener('drop', (event: DragEvent) => { this.handleDrop(event, this._sections, defaults); });
-                this._domElement.appendChild(defaultSection);
+        //todo, custom section names / amounts
 
-            }
+        for (let i = 0; i < defaults.length; i++) {
+            const sectionMap: Map<number, Card> = new Map();
+            this._sections.set(defaults[i], sectionMap);
+            const defaultSection = this.Section(defaults[i]);
+            defaultSection.addEventListener('dragenter', this.handeDragEnter);
+            defaultSection.addEventListener('dragover', this.handleDragOver);
+            defaultSection.addEventListener('dragleave', this.handleDragLeave);
+            defaultSection.addEventListener('drop', (event: DragEvent) => { this.handleDrop(event, this._sections, defaults); });
+            this._domElement.appendChild(defaultSection);
+
         }
+
 
     }
 
@@ -78,6 +68,10 @@ class Board {
     addCard(card: Card,): void {
         this._sections.get(defaults[0]).set(card.Id, card);
         const firstSection = this._domElement.getElementsByClassName("board-section " + defaults[0]);
+        card.domElement.addEventListener('delete-card', (event: CustomEvent) => {
+            const deleteHander = this.handleCardDelete.bind(this, event);
+            deleteHander();
+        });
         firstSection[0].appendChild(card.domElement);
     }
 
@@ -86,8 +80,8 @@ class Board {
         const section = this._domElement.getElementsByClassName(sectionName)[0];
         const sectionMap = this._sections.get(sectionName);
         const cards = section.getElementsByClassName("card");
-        while(cards[cards.length]){
-            cards[cards.length].parentNode.removeChild(cards[cards.length]);
+        while (cards.length > 0) {
+            cards[cards.length - 1].parentNode.removeChild(cards[cards.length - 1]);
         }
         sectionMap.forEach((value, key, map) => {
             section.appendChild(value.domElement);
@@ -118,7 +112,7 @@ class Board {
                 sectionName = sectionName + " " + sectionClassList[i]
             }
         }
-       // e.preventDefault();
+        // e.preventDefault();
 
         console.log(sectionName);
         if (!boardSections.get(sectionName))
@@ -147,6 +141,17 @@ class Board {
     private handleDragOver(e: DragEvent) {
         e.preventDefault();
         return false;
+    }
+
+    private handleCardDelete(e: CustomEvent) {
+        for (let i = 0; i < defaults.length; ++i) {
+            console.log(i);
+
+            if (this._sections.get(defaults[i]).delete(e.detail.id)) {
+                this.render(defaults[i]);
+                break;
+            }
+        }
     }
 }
 

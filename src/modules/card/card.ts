@@ -41,8 +41,10 @@ class Card {
     private _desc: string;
     private _domElement: HTMLDivElement;
     private editEvent: EditEvent;
+    private deleteEvent: CustomEvent;
     private dragEndEvent: DropEvent;
     private editButton:HTMLButtonElement;
+    private deleteButton: HTMLButtonElement;
     private header: HTMLHeadingElement;
     private description: HTMLParagraphElement;
     private ID: number;    
@@ -60,6 +62,13 @@ class Card {
             {
                 desc: this._desc,
                 type: this._type,
+            }
+        });
+
+        this.deleteEvent = new CustomEvent('delete-card',{
+            detail:
+            {
+                id:this.ID
             }
         });
 
@@ -81,6 +90,11 @@ class Card {
         this.editButton.innerText = "Edit";
         this.editButton.addEventListener('click', this.edit.bind(this));//
 
+        this.deleteButton = document.createElement('button');
+        this.deleteButton.classList.add('delete-card-button');
+        this.deleteButton.innerText = 'Delete';
+        this.deleteButton.addEventListener('click', this.delete.bind(this));
+
         this.header = document.createElement('h6');
         this.header.innerText = this._title;
 
@@ -91,6 +105,7 @@ class Card {
         this._domElement.appendChild(this.header);
         this._domElement.appendChild(this.description);
         this._domElement.appendChild(this.editButton);
+        this._domElement.appendChild(this.deleteButton);
 
     }
 
@@ -116,6 +131,11 @@ class Card {
 
     private edit() {
         this._domElement.dispatchEvent(this.editEvent);
+    }
+
+    private delete():void{
+        this._domElement.dispatchEvent(this.deleteEvent);
+        Card.IDManager.freeID(this.ID);
     }
 
 
