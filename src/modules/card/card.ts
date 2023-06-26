@@ -95,7 +95,7 @@ class Card {
         this.deleteButton.innerText = 'Delete';
         this.deleteButton.addEventListener('click', this.delete.bind(this));
 
-        this.header = document.createElement('h6');
+        this.header = document.createElement('h5');
         this.header.innerText = this._title;
 
         this.description = document.createElement('p');

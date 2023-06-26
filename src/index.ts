@@ -3,7 +3,7 @@ import { Board } from "./modules/board/board";
 import CardModal from "./modules/card/card-modal";
 import "./index.scss";
 
-//TODO Delete card, swap cards in same section?, allow dropping on to card 
+//TODO local storage swap cards in same section?, allow dropping on to card 
     
 const board = new Board();
 let modal:CardModal;
@@ -12,6 +12,8 @@ card.domElement.addEventListener('edit-request', ()=>{editCard(card)});
 const boardContainer = document.createElement('div');
 boardContainer.classList.add('board-container');
 
+const addButtonContainer = document.createElement('div');
+addButtonContainer.classList.add("add-button-container");
 const addButton = document.createElement("button");
 const addButtonText = document.createElement('div');
 addButton.className = "add-button";
@@ -32,14 +34,22 @@ addButton.addEventListener('click', () =>{
         
     });
 
+    modal.domElement.addEventListener("cancelled", ()=>{
+        document.body.removeChild(modal.domElement);
+        boardContainer.classList.remove("dimmed");
+        addButton.disabled = false;
+    });
+
     
 }); 
 
 
-document.body.appendChild(addButton);
+
 board.addCard(card);
 boardContainer.appendChild(board.domElement);
 document.body.appendChild(boardContainer);
+addButtonContainer.appendChild(addButton);
+document.body.appendChild(addButtonContainer);
 
 
 const editCard = (card:cards.Card):void => {

@@ -7,16 +7,22 @@ interface CardModalInfo {
    taskType: taskType,
    desc: string
 }
+
+interface SubmitEvent extends CustomEvent {
+   detail: submitEventDetail
+}
+
 interface submitEventDetail {
    detail: CardModalInfo
 }
 
 //
-class CardForm extends eventEmitter {
+class CardForm {
    private _container: HTMLDivElement;
    private _modal: HTMLFormElement;
    private _title: HTMLHeadingElement;
-   submitEvent: CustomEvent;
+   private submitEvent: CustomEvent;
+   private cancelEvent: CustomEvent;
    private fieldClassName = "form-field";
    private _titleContainer: HTMLDivElement;
    private _titleInput: HTMLInputElement;
@@ -28,10 +34,11 @@ class CardForm extends eventEmitter {
    private _descInput: HTMLTextAreaElement;
    private _descLabel: HTMLLabelElement;
    private _submitButton: HTMLButtonElement;
+   private _cancelButton: HTMLButtonElement;
 
 
    constructor(cardInfo?: CardModalInfo) {
-      super();
+
       //this.submitEvent = new CustomEvent("submitted", {detail:cardInfo});
       this._container = document.createElement('div');
       this._container.className = "card-modal-container";
@@ -41,9 +48,9 @@ class CardForm extends eventEmitter {
       this._title.innerText = "Create New Card";
 
       let titleValue = "";
-      let dropDownValue:taskType = taskType.engineering;
+      let dropDownValue: taskType = taskType.engineering;
       let descValue = "";
-      if(cardInfo){
+      if (cardInfo) {
          titleValue = cardInfo.title;
          dropDownValue = cardInfo.taskType;
          descValue = cardInfo.desc;
@@ -96,7 +103,7 @@ class CardForm extends eventEmitter {
       this._descInput.value = descValue;
       this._descContainer.append(this._descLabel, this._descInput);
 
-      //button
+      //submit button
       this._submitButton = document.createElement("button");
       this._submitButton.type = "button";
       this._submitButton.innerText = "Submit";
@@ -106,8 +113,17 @@ class CardForm extends eventEmitter {
          this._container.dispatchEvent(this.submitEvent);
       });
 
+      //cancel button
+      this._cancelButton = document.createElement("button");
+      this._cancelButton.type = "button";
+      this._cancelButton.innerText = "Cancel";
+      this._cancelButton.addEventListener("click", () => {
+         this.cancelEvent = new CustomEvent("cancelled");
+         this._container.dispatchEvent(this.cancelEvent);
+      });
 
-      this._modal.append(this._title, this._titleContainer, this._dropDownContainer, this._descContainer, this._submitButton);
+
+      this._modal.append(this._title, this._titleContainer, this._dropDownContainer, this._descContainer, this._submitButton, this._cancelButton);
       this._container.appendChild(this._modal);
 
    }
@@ -136,9 +152,7 @@ export default class CardModal {
       });
    }
 
-   submit(): void {
-      console.log(this._domElement.childNodes);
-   }
+
 
    get domElement() {
       return this._domElement.domElement;

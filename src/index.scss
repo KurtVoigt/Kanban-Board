@@ -3,35 +3,52 @@
 
 body {
     background-color: $background;
-
-    .add-button {
-        position: fixed;
+    font-family: 'Prompt', sans-serif;
+    .add-button-container {
         display: flex;
-        justify-content: center;
         align-items: center;
-        bottom: 2rem;
-        right: 2rem;
-        background-color: $orange-higlight;
-        color: $white;
-        font-weight: 900;
-        font-size: 4rem;
-        height: 70px;
-        width: 70px;
-        border-radius: 40px;
-        border: none;
-        cursor: pointer;
+        justify-content: flex-end;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        .add-button {
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $orange-higlight;
+            color: $white;
+            font-weight: 900;
+            font-size: 3rem;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: none;
+            cursor: pointer;
 
-        div {
-            padding-bottom: 10px;
-        }
+
+            @media screen and (max-width:991px) {
+                
+            }
+
+            @media screen and (min-width:992px) {
+            }
+
+            @media screen and (min-width:1100px) {
+            }
+
+            div {
+                padding-bottom: 8px;
+            }
 
 
-        &:active {
-            background-color: #944000;
-        }
+            &:active {
+                background-color: #944000;
+            }
 
-        &:disabled{
-            visibility: hidden;
+            &:disabled {
+                background-color: #944000
+            }
         }
     }
 
