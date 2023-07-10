@@ -42,7 +42,7 @@ In this way you can create sections and cards based off of what is saved in loca
 ### Application Flow
 The flow of this app goes as follows
 1. Index checks whether user has data for this app stored locally
-1. If it does, fetches it, creates card objects form data and creates board object, passing it these cards so that they will be correctly displayed
+2. If it does, fetches it, creates card objects form data and creates board object, passing it these cards so that they will be correctly displayed
 - if it does not, creates a new example card object and an empty board object, adding the example card to the board
 1. Index then creates its top level dom elements (board container and the add button) and appends the board dom element.
 1. User can now freely create card via the add button
