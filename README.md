@@ -50,3 +50,6 @@ The flow of this app goes as follows
 
 ## Webpack
 I originally started this project to learn some webpack as I had only had experience on Vite. A nifty tool, though I find working with the config file a bit cumbersome. I used sass loader to convert scss to css, ts loader to convert typescript into whatever JS standard that nobody writes anymore, and the HTMLWebpack plugin to create an index.html in my dist folder with a template (found here in template.html) so that I could pull in some google fonts. 
+
+## Still to do
+I'd like to work on the CSS a bit. This could look a lot better.
