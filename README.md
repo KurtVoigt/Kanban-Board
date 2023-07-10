@@ -7,7 +7,7 @@
 This codebase is seperated into several modules that control specific funtionality. Each module is contains a class responsible for both the data necessary for it to create its associated dom object and managing its specific object index.ts is the starting point. This was my way of limiting potentially conflicting calls on dom objects from places all over the application.
 
 ### index.ts
-Responisible for orchestrating the various parts of the application, it is responisbile for the creation and management of the top level DOM, the creation of other application objects, listening for various events on those objects, and spelling out the order in which certain events should occur.
+Responisible for orchestrating the various parts of the application, it is responisbile for the creation and management of the top level DOM, the creation of other application objects, listening for various events on those objects, spelling out the order in which certain events should occur, and making calls to the LocalStorageController.
 
 
 ### board.ts
