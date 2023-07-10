@@ -44,9 +44,9 @@ The flow of this app goes as follows
 1. Index checks whether user has data for this app stored locally
 2. If it does, fetches it, creates card objects form data and creates board object, passing it these cards so that they will be correctly displayed
 - if it does not, creates a new example card object and an empty board object, adding the example card to the board
-1. Index then creates its top level dom elements (board container and the add button) and appends the board dom element.
-1. User can now freely create card via the add button
-1. Cards can be edited, deleted, or dragged and dropped between the sections of the Board
+3. Index then creates its top level dom elements (board container and the add button) and appends the board dom element.
+4. User can now freely create card via the add button
+5. Cards can be edited, deleted, or dragged and dropped between the sections of the Board
 
 ## Webpack
 I originally started this project to learn some webpack as I had only had experience on Vite. A nifty tool, though I find working with the config file a bit cumbersome. I used sass loader to convert scss to css, ts loader to convert typescript into whatever JS standard that nobody writes anymore, and the HTMLWebpack plugin to create an index.html in my dist folder with a template (found here in template.html) so that I could pull in some google fonts. 
