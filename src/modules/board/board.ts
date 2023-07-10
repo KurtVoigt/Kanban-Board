@@ -1,5 +1,7 @@
+import { FetchedSection } from "../..";
 import { Card } from "../card/card";
 import CardIDManager from "../card/CardIDManager";
+import { LocalStorageController, sections } from "../localStorageStruct/BoardStorage";
 import "./board.scss";
 
 
@@ -18,16 +20,19 @@ interface CardDroppedEvent extends CustomEvent {
     detail: CardDroppedDetails
 }
 
+type sectionsType = Map<string, Map<number, Card>>;
 
 //when dropped the accepting section needs the id of the card to add it to itself 
 class Board {
     private _domElement: HTMLDivElement;
-    private _sections: Map<string, Map<number, Card>>;
+    private _sections: sectionsType;
     private CardDroppedEvent: CardDroppedEvent;
-    constructor(sections?: string[]) {
+    constructor(fetchedSections?: FetchedSection[]) {
         this._sections = new Map();
         this._domElement = document.createElement('div');
         this._domElement.className = "board";
+       
+
         //todo, custom section names / amounts
 
         for (let i = 0; i < defaults.length; i++) {
@@ -40,6 +45,15 @@ class Board {
             defaultSection.addEventListener('drop', (event: DragEvent) => { this.handleDrop(event, this._sections, defaults); });
             this._domElement.appendChild(defaultSection);
 
+        }
+
+        if (fetchedSections) {
+            fetchedSections.forEach((section: FetchedSection) => {
+                for (let i = 0; i < section.cards.length; i++) {
+                    this._sections.get(section.name).set(section.cards[i].Id, section.cards[i]);
+                }
+                this.render(section.name);
+            });
         }
 
 
@@ -65,14 +79,24 @@ class Board {
     }
 
 
-    addCard(card: Card,): void {
-        this._sections.get(defaults[0]).set(card.Id, card);
-        const firstSection = this._domElement.getElementsByClassName("board-section " + defaults[0]);
+    addCard(card: Card, sectionName?: string): void {
+        let section: HTMLCollection;
+
+        if (sectionName){
+            section = this._domElement.getElementsByClassName("board-section " + sectionName);
+            this._sections.get(sectionName).set(card.Id, card);
+        }
+        else {
+            section = this._domElement.getElementsByClassName("board-section " + defaults[0]);
+            this._sections.get(defaults[0]).set(card.Id, card);
+        }
         card.domElement.addEventListener('delete-card', (event: CustomEvent) => {
             const deleteHander = this.handleCardDelete.bind(this, event);
             deleteHander();
         });
-        firstSection[0].appendChild(card.domElement);
+        section[0].appendChild(card.domElement);
+
+
     }
 
     //renders a section of the board, having a seperate dom tree with signals would be better
@@ -104,6 +128,7 @@ class Board {
         const droppedToDiv = e.target as HTMLDivElement;
         const cardID = Number(e.dataTransfer.getData('text/html'));
         const sectionClassList = droppedToDiv.classList;
+
         droppedToDiv.classList.remove("dragged-over")
         let sectionName = sectionClassList[1];
         if (sectionClassList.length > 2) {
@@ -111,8 +136,15 @@ class Board {
                 sectionName = sectionName + " " + sectionClassList[i]
             }
         }
-        // e.preventDefault();
+        this.CardDroppedEvent = new CustomEvent('card-section-change', {
+            detail:
+            {
+                cardId: cardID,
+                droppedOn: sectionName
+            }
+        });
 
+        //TODO, implement drop on to children
         if (!boardSections.get(sectionName))
             throw new Error("Map in board drop event handler does not exist");
         if (boardSections.get(sectionName).get(cardID)) {//already in
@@ -133,6 +165,7 @@ class Board {
         }
 
         boardSections.get(sectionName).set(card.Id, card);
+        this._domElement.dispatchEvent(this.CardDroppedEvent);
         this.render(sectionName);
     }
 
@@ -148,7 +181,8 @@ class Board {
                 break;
             }
         }
+
     }
 }
 
-export { Board };
+export { Board, sectionsType, CardDroppedEvent };

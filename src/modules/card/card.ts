@@ -49,13 +49,13 @@ class Card {
     private description: HTMLParagraphElement;
     private ID: number;    
 
-    constructor(type: taskType, title: string, desc: string,) {
+    constructor(cardInfo: cardInfo) {  //type: taskType, title: string, desc: string,
         if(!Card.IDManager){
             Card.IDManager = new CardIDManager();
         }
-        this._type = type;
-        this._desc = desc;
-        this._title = title;
+        this._type = cardInfo.type;
+        this._desc = cardInfo.desc;
+        this._title = cardInfo.title;
         this.ID = Card.IDManager.requestID();
         this.editEvent = new CustomEvent('edit-request', {
             detail:
@@ -108,6 +108,8 @@ class Card {
 
         this._domElement.appendChild(topRow);
         this._domElement.appendChild(this.description);
+
+        
  
 
     }
@@ -177,4 +179,4 @@ class Card {
 
 
 
-export { Card, taskType };
+export { Card, taskType, cardInfo };
