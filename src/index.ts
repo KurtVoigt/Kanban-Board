@@ -20,7 +20,6 @@ const LocalStore = new LocalStorageController();
 let modal: CardModal;
 
 const fetched = LocalStore.fetchSections();
-console.table(fetched);
 if (fetched) {
     const convertedFetchedSections = ConvertFetchedSections(fetched);
     board = new Board();
@@ -33,7 +32,6 @@ if (fetched) {
 }
 
 else {
-    console.log("yo dog");
     board = new Board();
     card = CreateCard({ type: cards.taskType.engineering, title: "First Ticket", desc: "Very complicated programming task", });
     board.addCard(card);
@@ -146,7 +144,6 @@ function ConvertFetchedSections(fetchedLocal: sections[]): FetchedSection[] {
 }
 
 function HandleCardSectionChange(e: CardDroppedEvent): void {
-    console.log("hello changed");
     e.preventDefault();
     LocalStore.ChangeCardSection(e.detail.cardId, e.detail.droppedOn);
 }

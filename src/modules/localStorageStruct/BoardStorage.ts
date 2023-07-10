@@ -85,7 +85,6 @@ class LocalStorageController {
             
             if (fetchedSection) {
                 let parsedSection: number[] = JSON.parse(fetchedSection);
-                console.log(this.sections[i].sectionName);
                 if (parsedSection) {
                     const index = parsedSection.indexOf(cardId);
                     if (index !== -1) {
@@ -112,7 +111,6 @@ class LocalStorageController {
         //add card to news section
         const fetchedSection = localStorage.getItem(newSectionName);
         if(fetchedSection){
-            console.log(newSectionName);
             let parsedSection: number[] = JSON.parse(fetchedSection);
             if(parsedSection){
                 parsedSection.push(cardId);
