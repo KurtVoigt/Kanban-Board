@@ -4,12 +4,24 @@
 body {
     background-color: $background;
     font-family: 'Prompt', sans-serif;
+    padding-top: 1px;
+    padding-bottom: 1px;
+
+    .page-header{
+        color: $background;
+        background-color: $orange-higlight;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
     .add-button-container {
         display: flex;
         align-items: center;
         justify-content: flex-end;
         margin-top: 1rem;
         margin-bottom: 1rem;
+        width: 90%;
         .add-button {
             
             display: flex;
@@ -52,7 +64,29 @@ body {
         }
     }
 
+    .board-container{
+        display: flex;
+        justify-content: center;
+    }
+
     .board-container.dimmed {
         opacity: 0.5;
+    }
+
+    .page-footer{
+        height: 2rem;
+        width: 99%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: $background;
+        background-color: $orange-higlight;
+        .github-link{
+            height: 80%;
+            img{
+                height:100%;
+            }
+        }
     }
 }

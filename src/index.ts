@@ -2,6 +2,8 @@ import * as cards from "./modules/card/card";
 import { Board, CardDroppedEvent } from "./modules/board/board";
 import CardModal from "./modules/card/card-modal";
 import { LocalStorageController, sections } from "./modules/localStorageStruct/BoardStorage";
+
+const ghImg = require("./images/ghImage.png");
 import "./index.scss";
 
 //TODO local storage swap cards in same section?, allow dropping on to card 
@@ -40,6 +42,27 @@ else {
 //        Board.BoardStorage.saveSections(this._sections);
 
 board.domElement.addEventListener('card-section-change', HandleCardSectionChange);
+
+const headerContainer = document.createElement('header');
+headerContainer.classList.add("page-header");
+const header = document.createElement('h1');
+header.innerText = "Kanban Board";
+headerContainer.append(header);
+
+const footerContainer = document.createElement('footer');
+footerContainer.classList.add('page-footer');
+const footer = document.createElement('p')
+footer.innerText = "Made By: KurtVoigt";
+const githubLink = document.createElement('a');
+const githubImage = document.createElement('img');
+githubImage.src =  ghImg;
+githubLink.append(githubImage);
+githubLink.href = "https://github.com/KurtVoigt/Kanban-Board/";
+githubLink.classList.add("github-link");
+footerContainer.append(footer);
+footerContainer.append(githubLink);
+
+
 
 const boardContainer = document.createElement('div');
 boardContainer.classList.add('board-container');
@@ -80,11 +103,12 @@ document.body.addEventListener("submitted", () => { console.log("body") });
 
 
 
-
+document.body.appendChild(headerContainer);
 boardContainer.appendChild(board.domElement);
 document.body.appendChild(boardContainer);
 addButtonContainer.appendChild(addButton);
 document.body.appendChild(addButtonContainer);
+document.body.append(footerContainer);
 
 
 const editCard = (card: cards.Card): void => {

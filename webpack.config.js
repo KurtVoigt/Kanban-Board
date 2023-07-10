@@ -8,6 +8,10 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.png$/,
+                type: 'asset/resource'
+            },
+            {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
@@ -24,6 +28,7 @@ module.exports = {
                     "sass-loader",
                 ],
             },
+
         ],
     },
     resolve: {
@@ -32,11 +37,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Kanban Board',
-            template:"./src/template.html",
+            template: "./src/template.html",
         }),
     ],
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
+        assetModuleFilename: 'images/[name].[ext]'
     },
 };

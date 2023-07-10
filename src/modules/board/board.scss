@@ -1,23 +1,26 @@
 @import "../../sass-variables.scss";
 
 .board{
-    display: grid;
-    grid-template-columns: repeat(3, minmax(200px, 33%));
-    height: clamp(300px, 85vh, 1000px); 
-    background-color: $orange-higlight;
+    display: flex;
+    justify-content: space-around;
+    height: clamp(300px, 70vh, 800px); 
+    width:80%;
+    background-color: $background;
     gap: 1ch;
     padding: 1ch;
     color: $white;
+   
     .board-section{
         background-color: $background;
+        border: 4px solid $orange-higlight;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1rem;
         overflow: scroll;
-
+        width: 28%;
         &.dragged-over{
-            background-color: $background-dimmed;
+            background-color: $orange-higlight-dimmed;
         }
     }
     h4{
