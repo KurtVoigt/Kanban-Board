@@ -140,6 +140,15 @@ class CardForm {
       return this._container;
    }
 
+   disableInputs():void{
+      this._descInput.disabled = true;
+      this._dropDownSelect.disabled = true;
+      this._titleInput.disabled = true;
+      this._submitButton.style.visibility = "hidden";
+      this._cancelButton.innerText = "Close";
+      this._title.innerText = "View Card";
+   }
+
 
 }
 
@@ -148,9 +157,13 @@ export default class CardModal {
    private _title: string;
    private _type: taskType;
    private _desc: string;
-   constructor(cardInfo?: CardModalInfo) {
-      if (cardInfo)
+   constructor(cardInfo?: CardModalInfo, disabled?:boolean) {
+      if (cardInfo){
          this._domElement = new CardForm(cardInfo);
+         if(disabled){
+            this._domElement.disableInputs();
+         }
+      }
       else
          this._domElement = new CardForm();
       this._domElement.domElement.addEventListener("submitted", (e: CustomEvent) => {

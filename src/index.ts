@@ -111,8 +111,9 @@ document.body.appendChild(addButtonContainer);
 document.body.append(footerContainer);
 
 
-const editCard = (card: cards.Card): void => {
-    const modal = new CardModal({ title: card.title, taskType: card.type, desc: card.desc });
+const editCard = (card: cards.Card, disabled?:boolean): void => {
+    
+    const modal = new CardModal({ title: card.title, taskType: card.type, desc: card.desc }, disabled);
     document.body.appendChild(modal.domElement);
     boardContainer.classList.add("dimmed");
     addButton.disabled = true;
@@ -142,6 +143,7 @@ function CreateCard(cardInfo: cards.cardInfo, sectionName?: string): cards.Card 
     const card = new cards.Card({ type: cardInfo.type, desc: cardInfo.desc, title: cardInfo.title });
     card.domElement.addEventListener('edit-request', () => { editCard(card) });
     card.domElement.addEventListener('delete-card', () => { LocalStore.deleteCard(card.Id) });
+    card.domElement.addEventListener('view-card', ()=>{editCard(card, true);});
 
     if (sectionName) {
         LocalStore.saveCard(card, sectionName);
@@ -171,5 +173,6 @@ function HandleCardSectionChange(e: CardDroppedEvent): void {
     e.preventDefault();
     LocalStore.ChangeCardSection(e.detail.cardId, e.detail.droppedOn);
 }
+
 
 export { FetchedSection }

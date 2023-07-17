@@ -40,6 +40,7 @@ class Card {
     private _title: string;
     private _desc: string;
     private _domElement: HTMLDivElement;
+    private clickEvent: CustomEvent;
     private editEvent: EditEvent;
     private deleteEvent: CustomEvent;
     private dragEndEvent: DropEvent;
@@ -58,6 +59,7 @@ class Card {
         this._desc = cardInfo.desc;
         this._title = cardInfo.title;
         this.ID = Card.IDManager.requestID();
+        this.clickEvent = new CustomEvent('view-card');
         this.editEvent = new CustomEvent('edit-request', {
             detail:
             {
@@ -83,6 +85,10 @@ class Card {
         this._domElement.addEventListener('dragstart', (event:DragEvent) => {this.handleDragStart(event, this.ID)});
         this._domElement.addEventListener('dragend', ()=>{
             this.handleDragEnd(this._domElement)});
+
+        this._domElement.addEventListener('click', (e:Event)=>{
+            e.preventDefault();
+            this._domElement.dispatchEvent(this.clickEvent);});
         
 
 
@@ -90,12 +96,18 @@ class Card {
         this.editButton = document.createElement('button');
         this.editButton.classList.add('edit-card-button');
         this.editButton.innerText = "Edit";
-        this.editButton.addEventListener('click', this.edit.bind(this));//
+        this.editButton.addEventListener('click', (e:MouseEvent)=>{
+            e.stopPropagation();
+            this.edit();   
+        });
 
         this.deleteButton = document.createElement('button');
         this.deleteButton.classList.add('delete-card-button');
         this.deleteButton.innerText = 'Delete';
-        this.deleteButton.addEventListener('click', this.delete.bind(this));
+        this.deleteButton.addEventListener('click', (e:MouseEvent)=>{
+            e.stopPropagation();
+            this.delete();   
+        });
 
         this.buttonContainer = document.createElement('div');
         this.buttonContainer.classList.add('card-button-container');
