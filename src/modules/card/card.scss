@@ -5,7 +5,8 @@
     border: 0.5ch solid black;
     width: 70%;
     height: 125px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,32 +15,41 @@
     border-radius: 6px;
     flex-shrink: 0;
     position: relative;
+
+    @include scrollbars;
     cursor: grab;
 
     .card-buttons-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
+        display: grid;
         width: 100%;
+        grid-template-columns: 25% 75%;
 
         h5 {
             text-align: center;
             font-size: 17px;
             font-weight: 700;
+            padding-right: 25%;
+            word-wrap: break-word;
         }
 
+        .card-button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            button {
+                background-color: $orange-higlight;
+                color: $white;
+                border-color: transparent;
+                height: 1.5rem;
+                border-radius: 10px;
+                width: clamp(45px, 75%, 65px);
+                font-size: 12px;
+                text-align: center;
+                font-family: 'Prompt', sans-serif;
 
-        button {
-            background-color: $orange-higlight;
-            color: $white;
-            border-color: transparent;
-            height: 1.5rem;
-            border-radius: 10px;
-            width: 67px;
-
-            text-align: center;
-            font-family: 'Prompt', sans-serif;
-
+            }
         }
     }
 
@@ -56,10 +66,13 @@
     }
 
 
-    p {
+    .card-description {
         margin: 1rem;
         font-size: 13px;
         font-weight: 400;
+        text-align: center;
+        word-wrap: break-word;
+        width: 95%;
     }
 
 

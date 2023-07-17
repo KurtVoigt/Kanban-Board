@@ -23,7 +23,7 @@ body {
         margin-bottom: 1rem;
         width: 90%;
         .add-button {
-            
+            padding: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,6 +38,16 @@ body {
             border: none;
             cursor: pointer;
 
+            div{
+                height: 80%;
+                width: 80%;
+                text-align: center;
+                line-height: 80%;
+                @-moz-document url-prefix() {
+                    padding-bottom: 10px;
+                  }
+            }
+
 
             @media screen and (max-width:991px) {
                 
@@ -49,9 +59,6 @@ body {
             @media screen and (min-width:1100px) {
             }
 
-            div {
-                padding-bottom: 8px;
-            }
 
 
             &:active {

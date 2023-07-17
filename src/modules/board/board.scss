@@ -19,7 +19,20 @@
         gap: 1rem;
         overflow: scroll;
         width: 28%;
+        box-shadow: 0px 5px 7px $orange-higlight-dimmed;
+        @include scrollbars;
         &.dragged-over{
+            /*chrome scrollbars are so bad man*/
+            &::-webkit-scrollbar-thumb {
+                background: transparent;
+              }
+              &::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              &::-webkit-scrollbar-corner {
+                background-color: transparent;
+              }
+            
             background-color: $orange-higlight-dimmed;
         }
     }

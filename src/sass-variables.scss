@@ -4,3 +4,27 @@ $lighter-grey:#393e46;
 $orange-higlight: rgb(249, 109, 0);
 $orange-higlight-dimmed: rgb(249, 109, 0, 0.8);
 $white: #f2f2f2;
+
+@mixin scrollbars(
+  $size: 7px,
+  $foreground-color: rgb(249, 109, 0),
+  $background-color: rgb(34, 40, 49),
+) {
+  // For Chrome & Safari
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  // Standard version (Firefox only for now)
+  scrollbar-color: $foreground-color $background-color;
+}

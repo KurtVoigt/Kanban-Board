@@ -45,6 +45,7 @@ class Card {
     private dragEndEvent: DropEvent;
     private editButton:HTMLButtonElement;
     private deleteButton: HTMLButtonElement;
+    private buttonContainer: HTMLDivElement;
     private header: HTMLHeadingElement;
     private description: HTMLParagraphElement;
     private ID: number;    
@@ -96,15 +97,20 @@ class Card {
         this.deleteButton.innerText = 'Delete';
         this.deleteButton.addEventListener('click', this.delete.bind(this));
 
+        this.buttonContainer = document.createElement('div');
+        this.buttonContainer.classList.add('card-button-container');
+        this.buttonContainer.append(this.editButton, this.deleteButton);
+
         this.header = document.createElement('h5');
         this.header.innerText = this._title;
 
-        this.description = document.createElement('p');
+        this.description = document.createElement('div');
+        this.description.classList.add("card-description");
         this.description.innerText = this._desc;
 
         const topRow = document.createElement('div');
         topRow.classList.add('card-buttons-title');
-        topRow.append(this.deleteButton, this.header, this.editButton);
+        topRow.append(this.buttonContainer, this.header);
 
         this._domElement.appendChild(topRow);
         this._domElement.appendChild(this.description);
