@@ -59,4 +59,4 @@ npm run build
 ``` 
 
 ## Still to do
-I'd like to work on the CSS a bit. This could look a lot better.
+I am calling this done. 
