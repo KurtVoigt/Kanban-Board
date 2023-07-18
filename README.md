@@ -59,4 +59,4 @@ npm run build
 ``` 
 
 ## Still to do
-I am calling this done. 
+Mobile styling
